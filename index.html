@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculul probabilității</title>
+  <script>
+    function calculateProbability() {
+      var X = parseFloat(document.getElementById('height').value);
+      var μ = parseFloat(document.getElementById('media').value);
+      var σ = parseFloat(document.getElementById('distribution').value);
+
+      var Z = (X - μ) / σ;
+
+      // Using cumulative distribution function (CDF) to calculate the probability
+      var probability = 1 - standardNormalCDF(Z);
+
+      var percentage = (probability * 100).toFixed(2) + "%";
+
+      document.getElementById('result').textContent = "Probabilitatea calculată: " + percentage;
+    }
+
+    // Cumulative Distribution Function (CDF) for standard normal distribution
+    function standardNormalCDF(z) {
+      var t = 1 / (1 + 0.2316419 * Math.abs(z));
+      var d = 0.3989423 * Math.exp(-0.5 * z * z);
+      var p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+
+      if (z > 0) {
+        return 1 - p;
+      } else {
+        return p;
+      }
+    }
+  </script>
+</head>
+<body>
+  <div>
+    <span style="font-size: 50px;">μ </span>= <input type="number" id="media">
+  </div>
+  <div>
+    <span style="font-size: 50px;"> σ  </span>= <input type="number" id="distribution">
+  </div>
+
+  <h2>Calculul probabilității</h2>
+
+  <label for="height">Înălțime:</label>
+  <input type="number" id="height">
+  <button onclick="calculateProbability()">Calculează</button>
+  <p id="result"></p>
+
+  <br><br>
+
+  <div>
+    Pentru a calcula probabilitatea de a alege la întâmplare o persoană cu înălțimea mai mare de 175 cm într-o distribuție normală cu valoarea medie de 165 cm și abaterea standard de 5 cm, putem utiliza tabelul valorilor standardizate sau formula densității normale standard (Z).
+    <br><br>
+Pasul 1: Standardizarea valorii de înălțime
+
+Calculăm valoarea Z folosind formula:
+Z = (X - μ) / σ
+<br><br>
+
+
+Unde:
+X este înălțimea specifică (175 cm)
+μ este valoarea medie (165 cm)
+σ este abaterea standard (5 cm)
+<br><br>
+Z = (175 - 165) / 5
+Z = 10 / 5
+Z = 2
+<br>
+Pasul 2: Calculul probabilității
+<br><br>
+Probabilitatea de a alege la întâmplare o persoană cu înălțimea mai mare de 175 cm poate fi găsită utilizând tabela valorilor standardizate Z sau folosind o calculatoare/software de calcul.
+<br><br>
+Din tabelul valorilor standardizate Z, căutăm valoarea corespunzătoare lui Z = 2. Acesta va fi reprezentat sub forma unei probabilități cumulative (de exemplu, P(Z > 2)).
+<br><br>
+Din tabel, găsim că P(Z > 2) este aproximativ 0.0228 sau 2.28% (probabilitatea de a alege o persoană cu înălțimea mai mare de 175 cm este de aproximativ 2.28%).
+
+Astfel, probabilitatea de a alege la întâmplare o persoană cu înălțimea mai mare de 175 cm într-o distribuție normală cu valoarea medie de 165 cm și abaterea standard de 5 cm este de aproximativ 2.28%.
+  </div>
+</body>
+</html>
